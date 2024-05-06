@@ -5,10 +5,10 @@ from rest_framework.permissions import IsAuthenticated, BasePermission
 from .serializers import *
 from .models import *
 
-class IsInUserGroup(BasePermission):
+class IsManager(BasePermission):
 
     def has_permission(self, request, view):
-        return request.user and request.user.groups.filter(name='Manager').exists()
+        return request.user.groups.filter(name='Manager').exists()
 
 # Create your views here.
 class MenuItemsView(ListCreateAPIView):
@@ -18,7 +18,7 @@ class MenuItemsView(ListCreateAPIView):
     def get_permissions(self):
         if(self.request.method=='GET'):
             return []
-        return [IsInUserGroup()]
+        return [IsManager()]
 
 class SingleMenuItemView(RetrieveUpdateDestroyAPIView):
     queryset = MenuItem.objects.all()
@@ -27,12 +27,26 @@ class SingleMenuItemView(RetrieveUpdateDestroyAPIView):
     def get_permissions(self):
         if(self.request.method=='GET'):
             return []
-        return [IsInUserGroup()]
+        return [IsManager()]
 
-class BookingViewSet(ModelViewSet):
+class BookingView(ListCreateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Booking.objects.filter(user=self.request.user)
+        if self.request.user.groups.filter(name='Manager').exists():
+            return Booking.objects.all()
+        else:
+            return Booking.objects.filter(user=self.request.user)
+    
+class SingleBookingView(RetrieveUpdateDestroyAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        if self.request.user.groups.filter(name='Manager').exists():
+            return Booking.objects.all()
+        else:
+            return Booking.objects.filter(user=self.request.user)
