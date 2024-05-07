@@ -26,7 +26,7 @@ class MenuItem(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order_items = models.ManyToManyField(MenuItem)
-    delivery_crew = models.OneToOneField(User, on_delete=models.SET_NULL, related_name="delivery_crew", null=True)
+    delivery_crew = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="delivery_crew", null=True)
     delivery_status = models.BooleanField(db_index=True, default=False)
     order_datetime = models.DateTimeField(default=datetime.datetime.now().replace(microsecond=0))
     total_amount = models.DecimalField(max_digits=6, decimal_places=2, null=True)

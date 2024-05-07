@@ -1,7 +1,7 @@
 from rest_framework.serializers import *
 from .models import *
 from django.contrib.auth.models import User
-import datetime, random
+import random
 
 class BookingSerializer(ModelSerializer):
     user = PrimaryKeyRelatedField(
@@ -25,11 +25,10 @@ class OrderSerializer(ModelSerializer):
     total_amount = DecimalField(max_digits=6, decimal_places=2, read_only=True)
     delivery_crew = PrimaryKeyRelatedField(read_only=True)
     order_datetime = DateTimeField(read_only=True)
-    delivery_status = BooleanField(default=False, read_only=True)
     
     class Meta:
         model = Order
-        fields = '__all__'
+        exclude = ['delivery_status']
 
     def create(self, validated_data):
         order_items_data = validated_data.pop('order_items')
