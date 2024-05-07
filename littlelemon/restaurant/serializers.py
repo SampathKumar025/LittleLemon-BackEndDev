@@ -24,11 +24,12 @@ class OrderSerializer(ModelSerializer):
     user = PrimaryKeyRelatedField(queryset=User.objects.filter(groups=3),default=CurrentUserDefault())
     total_amount = DecimalField(max_digits=6, decimal_places=2, read_only=True)
     delivery_crew = PrimaryKeyRelatedField(read_only=True)
+    delivery_status = models.BooleanField(default=False)
     order_datetime = DateTimeField(read_only=True)
     
     class Meta:
         model = Order
-        exclude = ['delivery_status']
+        fields = '__all__'
 
     def create(self, validated_data):
         order_items_data = validated_data.pop('order_items')
