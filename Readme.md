@@ -3,6 +3,52 @@
 **Overview:**
 Little Lemon Backend API is a Django-based application designed to facilitate restaurant management functionalities through RESTful APIs. It incorporates Django Rest Framework and Djoser for authentication, providing secure access to various endpoints for menu management, user registration, table booking, and authentication token generation.
 
+### Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+- Python 3.x installed
+- Pip (Python package manager)
+- Virtual environment (optional but recommended)
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/SampathKumar025/LittleLemon-BackEndDev.git
+
+2. Create a virtual environment (optional but recommended):
+
+    ```bash
+    python -m venv djvenv
+    venv\Scripts\activate      # On Windows
+
+3. Install the required dependencies:
+   - Ensure Django and Django Rest Framework are installed.
+   - Set up Djoser for user authentication.
+   - Use appropriate HTTP methods to access endpoints as per the provided descriptions.
+
+    ```bash
+    pip install -r requirements.txt
+
+4. Install MySQL on your system. Setup root password and create a database of any name. Make sure to make the changes under Databases in the settings.py file of your django project.
+
+5. Navigate to the project folder and make migrations with the below commands to reflect the changes in the Database.
+
+   ```bash
+   cd littlelemon
+   py manage.py makemigrations
+   py manage.py migrate
+
+6. Start the Django development server:
+
+    ```bash
+    py manage.py runserver
+
+7. Install Postman or Insomnia tools to work with the below API endpoints of the Littlelemon Application.
+
+
 **Endpoints:**
 
 1. **/auth/users/**
@@ -46,12 +92,6 @@ Little Lemon Backend API is a Django-based application designed to facilitate re
    - GET: Displays orders of the user with a valid token and specified booking ID.
    - PUT, DELETE: Allows updating and deleting the order with valid user token and manager authorization.
    - PATCH: Allows delivery crew to update the delivery status of the order.
-
-
-**Usage:**
-- Ensure Django and Django Rest Framework are installed.
-- Set up Djoser for user authentication.
-- Use appropriate HTTP methods to access endpoints as per the provided descriptions.
 
 
 **Note:** Authentication tokens are essential for accessing authenticated endpoints. Ensure token management for secure access to the API functionalities.
