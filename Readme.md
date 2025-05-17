@@ -33,6 +33,18 @@ Before you begin, ensure you have met the following requirements:
     pip install -r requirements.txt
 
 4. Install MySQL on your system. Setup root password and create a database of any name. Make sure to make the changes under Databases in the settings.py file of your django project.
+Or
+You can import the Database file from the dumps folder in this repo which would help to work with the Data on the go.
+   - Open MySQL Workbench and connect to the desired MySQL server (it can be the same or a different server).
+   - Navigate to the "Server" tab in the main menu.
+   - Select "Data Import." This opens the Data Import wizard.
+   - Choose "Import from Self-Contained File."
+   - Browse and select the .sql file from the 'dumps' folder.
+   - Choose the target schema (database). You can either select an existing schema or create a new one.
+   - Click "Start Import" to begin the import process.
+Verify the Import:
+   - After the import is complete, verify that the database and its contents have been successfully restored.
+   - Check the tables, data, and any other database objects to ensure they are present and correct.
 
 5. Navigate to the project folder and make migrations with the below commands to reflect the changes in the Database.
 
